@@ -1,0 +1,47 @@
+#!/bin/bash
+
+PKG=$1
+
+if [ -z "$PKG" ]; then
+    echo "Uso: arch-why <package>"
+    exit 1
+fi
+
+if ! pacman -Qi "$PKG" &>/dev/null; then
+    echo "Pacchetto non trovato"
+    exit 1
+fi
+
+# Forza output in inglese
+INFO=$(LANG=C pacman -Qi "$PKG")
+
+# Nome capitalizzato
+NAME=$(echo "$PKG" | sed 's/.*/\u&/')
+
+# Install reason
+if echo "$INFO" | grep -q "Explicitly installed"; then
+    REASON="Installato manualmente"
+else
+    REASON="Installato come dipendenza"
+fi
+
+# Required by
+REQ=$(echo "$INFO" | grep "Required By" | sed 's/.*: //')
+if [[ "$REQ" == "None" ]]; then
+    REQ="Nessuno"
+fi
+
+# Dependencies
+DEPS=$(echo "$INFO" | grep "Depends On" | sed 's/.*: //')
+if [[ "$DEPS" == "None" ]]; then
+    DEPS="Nessuna"
+fi
+
+# Output finale
+echo ""
+echo "$NAME: $REASON"
+echo ""
+echo "Richiesto da: $REQ"
+echo ""
+echo "Dipendenze: $DEPS"
+echo ""
