@@ -63,16 +63,20 @@ sudo mv arch-why.sh /usr/local/bin/arch-why
 ---
 
 ## Usage
-
 ```bash
 arch-why <package>
 ```
 
-Example:
-
+Examples:
 ```bash
 arch-why vim
 arch-why firefox
+```
+
+Options:
+```bash
+arch-why --help    # show help message
+arch-why -h        # short form
 ```
 
 ---
@@ -121,6 +125,7 @@ On Arch Linux, it's common to forget why a package is installed.
 * colored output
 * JSON export
 * support for AUR packages
+* safer script execution (`set -euo pipefail`)
 
 ---
 
