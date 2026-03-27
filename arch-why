@@ -1,5 +1,19 @@
 #!/bin/bash
 
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    echo "Uso: arch-why <package>"
+    echo ""
+    echo "Spiega perché un pacchetto è installato sul tuo sistema Arch Linux."
+    echo ""
+    echo "Esempi:"
+    echo "  arch-why firefox"
+    echo "  arch-why vim"
+    echo ""
+    echo "Opzioni:"
+    echo "  -h, --help    Mostra questo messaggio"
+    exit 0
+fi
+
 PKG=$1
 
 if [ -z "$PKG" ]; then
