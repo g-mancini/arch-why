@@ -1,61 +1,51 @@
 #!/bin/bash
-
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
-    echo "Uso: arch-why <package>"
+    echo "Usage: arch-why <package>"
     echo ""
-    echo "Spiega perché un pacchetto è installato sul tuo sistema Arch Linux."
+    echo "Explains why a package is installed on your Arch Linux system."
     echo ""
-    echo "Esempi:"
+    echo "Examples:"
     echo "  arch-why firefox"
     echo "  arch-why vim"
     echo ""
-    echo "Opzioni:"
-    echo "  -h, --help    Mostra questo messaggio"
+    echo "Options:"
+    echo "  -h, --help    Show this message"
     exit 0
 fi
-
 PKG=$1
-
 if [ -z "$PKG" ]; then
-    echo "Uso: arch-why <package>"
+    echo "Usage: arch-why <package>"
     exit 1
 fi
-
 if ! pacman -Qi "$PKG" &>/dev/null; then
-    echo "Pacchetto non trovato"
+    echo "Package not found"
     exit 1
 fi
-
-# Forza output in inglese
+# Force English output
 INFO=$(LANG=C pacman -Qi "$PKG")
-
-# Nome capitalizzato
+# Capitalized name
 NAME=$(echo "$PKG" | sed 's/.*/\u&/')
-
 # Install reason
 if echo "$INFO" | grep -q "Explicitly installed"; then
-    REASON="Installato manualmente"
+    REASON="Installed manually"
 else
-    REASON="Installato come dipendenza"
+    REASON="Installed as a dependency"
 fi
-
 # Required by
 REQ=$(echo "$INFO" | grep "Required By" | sed 's/.*: //')
 if [[ "$REQ" == "None" ]]; then
-    REQ="Nessuno"
+    REQ="None"
 fi
-
 # Dependencies
 DEPS=$(echo "$INFO" | grep "Depends On" | sed 's/.*: //')
 if [[ "$DEPS" == "None" ]]; then
-    DEPS="Nessuna"
+    DEPS="None"
 fi
-
-# Output finale
+# Final output
 echo ""
 echo "$NAME: $REASON"
 echo ""
-echo "Richiesto da: $REQ"
+echo "Required by: $REQ"
 echo ""
-echo "Dipendenze: $DEPS"
+echo "Dependencies: $DEPS"
 echo ""

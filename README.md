@@ -23,11 +23,11 @@ A simple CLI tool for Arch Linux that explains **why a package is installed** on
 Output:
 
 ```
-Firefox: Installato manualmente
+Firefox: Installed manually
 
-Richiesto da: firefox-i18n-it
+Required by: firefox-i18n-it
 
-Dipendenze: alsa-lib at-spi2-core bash cairo dbus ...
+Dependencies: alsa-lib at-spi2-core bash cairo dbus ...
 ```
 
 ---
