@@ -17,7 +17,7 @@ A simple CLI tool for Arch Linux that explains **why a package is installed** on
 ## Example
 
 ```bash
-./arch-why.sh firefox
+arch-why libsystemd.so=0-64
 ```
 
 Output:
