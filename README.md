@@ -23,11 +23,11 @@ A simple CLI tool for Arch Linux that explains **why a package is installed** on
 Output:
 
 ```
-Firefox: Installed manually
+Libsystemd.so=0-64: Installed as a dependency
 
-Required by: firefox-i18n-it
+Required by: accountsservice  appstream  at-spi2-core  avahi  bluez  bluez-utils  brltty  ....
 
-Dependencies: alsa-lib at-spi2-core bash cairo dbus ...
+Dependencies: glibc  libgcc  libgcc_s.so=1-64  libgcrypt  lz4  xz  zstd
 ```
 
 ---
